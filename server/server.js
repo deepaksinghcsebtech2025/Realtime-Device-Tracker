@@ -5,17 +5,16 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const cors = require('cors');
 
-// Enable CORS
+// Enable CORS for your own domain or all (for testing)
 app.use(cors());
 
 // Initialize Socket.IO with CORS options
 const io = new Server(server, {
   cors: {
-    origin: ["https://realtime-device-tracker-project.vercel.app", "https://realtime-device-tracker-two.vercel.app"],
+    origin: "*", // or replace with your own domain
     methods: ["GET", "POST"]
   }
 });
-
 
 // Serve a simple response for root route
 app.get("/", (req, res) => {
