@@ -11,27 +11,26 @@ const Map = () => {
   const socketRef = useRef(null);
 
   useEffect(() => {
-    // Initialize map
+    // Initialize map centered at 0,0 with zoom 16
     const map = L.map('map').setView([0, 0], 16);
     mapRef.current = map;
 
-    // Add tile layer
+    // Add tile layer with your name in attribution
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'StreetMap by Abhinav Tirole'
+      attribution: 'StreetMap by Deepak Kumar'
     }).addTo(map);
 
-    // Initialize socket connection
+    // Initialize socket connection to backend URL
     socketRef.current = io('https://realtime-device-tracker-ct1a.onrender.com', {
       transports: ['websocket', 'polling'],
     });
 
-
-    // Watch position and emit location
+    // Watch user location and emit it through socket
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          console.log("User Location:", latitude, longitude); // Debugging
+          console.log("User Location:", latitude, longitude);
           socketRef.current.emit("send-location", { latitude, longitude });
         },
         (error) => {
@@ -47,9 +46,8 @@ const Map = () => {
     } else {
       alert("Geolocation is not supported by this browser.");
     }
-    
 
-    // Handle incoming location updates
+    // Receive location updates of other users
     socketRef.current.on('receive-location', (data) => {
       const { id, latitude, longitude } = data;
       map.setView([latitude, longitude]);
@@ -61,7 +59,7 @@ const Map = () => {
       }
     });
 
-    // Handle user disconnection
+    // Remove marker when user disconnects
     socketRef.current.on('user-disconnected', (id) => {
       if (markersRef.current[id]) {
         map.removeLayer(markersRef.current[id]);
@@ -69,7 +67,7 @@ const Map = () => {
       }
     });
 
-    // Cleanup
+    // Cleanup on component unmount
     return () => {
       map.remove();
       socketRef.current.disconnect();
@@ -78,9 +76,7 @@ const Map = () => {
 
   return (
     <div className="map-container">
-      
-      <div id="map"></div>
-      
+      <div id="map" style={{ height: '100vh', width: '100%' }}></div>
     </div>
   );
 };

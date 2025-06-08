@@ -9,26 +9,52 @@ const Homepage = () => {
     setIsVisible(true);
   }, []);
 
+  const features = [
+    {
+      icon: Map,
+      title: "Real-Time Tracking",
+      description: "Monitor locations in real-time with instant updates and notifications",
+    },
+    {
+      icon: Shield,
+      title: "Secure & Private",
+      description: "Your location data is encrypted and protected with the highest security standards",
+    },
+    {
+      icon: Users,
+      title: "Multiple Users",
+      description: "Track multiple users simultaneously with our advanced mapping system",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
       <section className="relative bg-gray-900 text-white py-32 overflow-hidden">
-        {/* Background pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 25px 25px, white 2%, transparent 0%)',
-            backgroundSize: '50px 50px'
-          }} />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 25px 25px, white 2%, transparent 0%)',
+              backgroundSize: '50px 50px',
+            }}
+          />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div
+            className={`text-center transform transition-all duration-1000 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}
+          >
             <div className="inline-block mb-4 px-4 py-1 rounded-full bg-blue-600/20 text-blue-400 text-sm font-medium">
               Real-Time Location Platform
             </div>
             <h1 className="font-heading text-5xl md:text-7xl font-bold mb-8 tracking-tight">
-              Real-Time Location
-              <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent"> Tracking</span>
+              Real-Time Location{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                Tracking
+              </span>
             </h1>
             <p className="font-sans text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed max-w-3xl mx-auto">
               Track and monitor locations in real-time with our advanced mapping system
@@ -67,43 +93,28 @@ const Homepage = () => {
               Powerful features to help you track and manage locations effortlessly
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              {
-                icon: Map,
-                title: "Real-Time Tracking",
-                description: "Monitor locations in real-time with instant updates and notifications"
-              },
-              {
-                icon: Shield,
-                title: "Secure & Private",
-                description: "Your location data is encrypted and protected with the highest security standards"
-              },
-              {
-                icon: Users,
-                title: "Multiple Users",
-                description: "Track multiple users simultaneously with our advanced mapping system"
-              }
-            ].map((feature, index) => (
-              <div 
-                key={index}
-                className="group relative p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative">
-                  <div className="flex justify-center mb-6">
-                    <feature.icon className="h-16 w-16 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={index}
+                  className="group relative p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative">
+                    <div className="flex justify-center mb-6">
+                      <Icon className="h-16 w-16 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                    <h3 className="font-heading text-2xl font-semibold mb-4 text-gray-900">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                   </div>
-                  <h3 className="font-heading text-2xl font-semibold mb-4 text-gray-900">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {feature.description}
-                  </p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -111,11 +122,14 @@ const Homepage = () => {
       {/* CTA Section */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700" />
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'radial-gradient(circle at 25px 25px, white 2%, transparent 0%)',
-          backgroundSize: '50px 50px'
-        }} />
-        
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 25px 25px, white 2%, transparent 0%)',
+            backgroundSize: '50px 50px',
+          }}
+        />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
             <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white">
